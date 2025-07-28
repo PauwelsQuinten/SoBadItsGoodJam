@@ -33,4 +33,9 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    public List<GameObject> GetCurrentPlayers()
+    {
+        return Players;
+    }
 }
