@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Scratchers2D : MonoBehaviour
 {
+	[SerializeField]
+	private List<Texture2D> _spellTextures;
 	[SerializeField, Tooltip("Payload Texture (what to reveal)")]
 	private Texture2D _underlyingTexture;
     [SerializeField, Tooltip("Gray obscuration covering texture")]
@@ -30,7 +32,7 @@ public class Scratchers2D : MonoBehaviour
 	public float MaxScratchStreakWidth = 0.035f;
 	public float ScratchMarkSpacing = 0.030f;
 
-	public Collider BackgroundCollider;
+	public Mesh BackgroundMesh;
 	public GameObject MouseObject;
 
 	Material UnderlyingMaterial;
@@ -45,25 +47,50 @@ public class Scratchers2D : MonoBehaviour
     List<int> _tris = new List<int>();
 
 	private int _scratchedSpots = 0;
-	private int _maxScratchedSpots = 9;
+	private int _maxScratchedSpots = 10;
 
-    void Start ()
-	{
-		mainCam = Camera.main;
+	private Spells _currentSpell = 0;
 
-		UnderlyingMaterial = new Material( UnlitMaterial);
-		UnderlyingMaterial.mainTexture = _underlyingTexture;
+    private void OnEnable()
+    {
+        mainCam = Camera.main;
 
-		ResultMaterial = new Material( UnlitMaterial);
-		ResultMaterial.mainTexture = RT;
-		_finalResultRenderer.material = ResultMaterial;
+        int randomSpell = Random.Range(0, 4);
 
-		workMesh = new Mesh();
+        switch (randomSpell)
+        {
+            case 0:
+                _currentSpell = Spells.Default;
+                _underlyingTexture = _spellTextures[0];
+
+                break;
+            case 1:
+                _currentSpell = Spells.WaterBall;
+                _underlyingTexture = _spellTextures[1];
+                break;
+            case 2:
+                _currentSpell = Spells.FireBall;
+                _underlyingTexture = _spellTextures[2];
+                break;
+            case 3:
+                _currentSpell = Spells.AcidBall;
+                _underlyingTexture = _spellTextures[3];
+                break;
+        }
+
+        UnderlyingMaterial = new Material(UnlitMaterial);
+        UnderlyingMaterial.mainTexture = _underlyingTexture;
+
+        ResultMaterial = new Material(UnlitMaterial);
+        ResultMaterial.mainTexture = RT;
+        _finalResultRenderer.material = ResultMaterial;
+
+        workMesh = new Mesh();
 	}
 
-    // to ensure we don't scratch until the obscuration has
-    // had a chance to render properly.
-    float startupTimer;
+	// to ensure we don't scratch until the obscuration has
+	// had a chance to render properly.
+	float startupTimer;
     const float startupDelay = 0.1f;
 
     void Update()
@@ -178,6 +205,46 @@ public class Scratchers2D : MonoBehaviour
 
 		if (_maxScratchedSpots > _scratchedSpots) return;
 
-		Debug.Log("Completed");
+		_scratchedSpots = 0;
+
+		RevealAllScratchArea();
+
+        Debug.Log("Completed");
+    }
+
+    void RevealAllScratchArea()
+    {
+        float quadSize = 0.5f; // Total width/height will be 30 units
+        List<Vector3> quadVerts = new List<Vector3>
+    {
+        new Vector3(-quadSize, -quadSize, 0f),
+        new Vector3(quadSize, -quadSize, 0f),
+        new Vector3(quadSize, quadSize, 0f),
+        new Vector3(-quadSize, quadSize, 0f),
+    };
+
+        List<int> quadTris = new List<int> { 0, 1, 2, 2, 3, 0 };
+
+        List<Vector2> quadUVs = new List<Vector2>
+    {
+        new Vector2(0, 0),
+        new Vector2(1, 0),
+        new Vector2(1, 1),
+        new Vector2(0, 1),
+    };
+
+        _vertices = quadVerts;
+        _tris = quadTris;
+        _uvs = quadUVs;
+
+        workMesh.Clear();
+        workMesh.vertices = _vertices.ToArray();
+        workMesh.triangles = _tris.ToArray();
+        workMesh.uv = _uvs.ToArray();
+        workMesh.RecalculateBounds();
+        workMesh.RecalculateNormals();
+
+        StageMeshFilter.mesh = workMesh;
+		StageMeshFilter.transform.eulerAngles = new Vector3(0, 180, 0);
     }
 }
