@@ -1,10 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rigidbody2D;
 
 public class TopDownMovement : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerInput _playerinput;
     [SerializeField]
     private Rigidbody _rb;
     [SerializeField]
@@ -49,9 +49,19 @@ public class TopDownMovement : MonoBehaviour
         if(_soundManager != null) PlayerSound();
     }
 
+    public void Move(InputAction.CallbackContext ctx)
+    {
+        float yAxis = ctx.ReadValue<Vector2>().y;
+        float xAxis = ctx.ReadValue<Vector2>().x;
+
+        _moveDirection = new Vector3(xAxis, 0, yAxis);
+        Debug.Log("Player is moving !!");
+    }
 
     private void PlayerSound()
     {
+        if (_runningSound == null) return;
+
         if (_velocity == Vector2.zero)
         {
             _soundManager.StopSound();
