@@ -36,6 +36,9 @@ public class Scratchers2D : MonoBehaviour
 	public Mesh BackgroundMesh;
 	public GameObject MouseObject;
 
+    [SerializeField]
+    private LayerMask _scratchLayer;
+
 	Material UnderlyingMaterial;
 
 	Material ResultMaterial;
@@ -179,19 +182,22 @@ public class Scratchers2D : MonoBehaviour
 		Vector3? CurrentPosition = null;
         _scratchInput = _playerInput.actions["Move"].ReadValue<Vector2>();
         _newPos += new Vector3(_scratchInput.x, _scratchInput.y, 0) * Time.deltaTime;
-        _newPos.z = 0.97f;
+        _newPos.z = 0.5f;
         MouseObject.transform.localPosition = _newPos;
-        Vector3 position = _newPos;
 
-        CurrentPosition = position;
+        RaycastHit hitInfo;
 
-        if ((PreviousPosition != null) &&
-            (CurrentPosition != null))
+        if (Physics.Raycast(MouseObject.transform.position, Vector3.down, out hitInfo, 100f, _scratchLayer))
         {
-            Debug.Log("StrikeTriangle");
-            StrikeTriangle(
-                (Vector3)PreviousPosition,
-                (Vector3)CurrentPosition);
+            Vector3 position = hitInfo.point;
+
+            CurrentPosition = position;
+            Debug.Log("hit scratch area");
+
+            if ((PreviousPosition != null) && (CurrentPosition != null))
+            {
+                StrikeTriangle((Vector3)PreviousPosition, (Vector3)CurrentPosition);
+            }
         }
 
         PreviousPosition = CurrentPosition;

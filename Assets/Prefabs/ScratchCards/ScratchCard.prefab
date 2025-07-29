@@ -52,8 +52,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &2766318838684181329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +119,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &9185938356547134218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,8 +186,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &1628843030030213038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 5500073973762739327}
   - component: {fileID: 6639847360164749799}
   - component: {fileID: 3411781414141975458}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FinalResultRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,8 +551,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &1837343595187860774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,8 +618,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &1456574612034547822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,8 +685,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &114268444655555348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,6 +768,9 @@ MonoBehaviour:
   ScratchMarkSpacing: 0.03
   BackgroundMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   MouseObject: {fileID: 3592978255745314090}
+  _scratchLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &1067315797768080263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,8 +979,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &1603435433031026345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,8 +1046,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &6410442540495543487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1110,8 +1113,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &9035129060334615591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1177,8 +1180,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.21}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
 --- !u!114 &7556826788704971743
 MonoBehaviour:
   m_ObjectHideFlags: 0
