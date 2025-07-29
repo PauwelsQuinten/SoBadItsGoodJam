@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Scratchers2D : MonoBehaviour
 {
@@ -51,6 +52,12 @@ public class Scratchers2D : MonoBehaviour
 
 	private Spells _currentSpell = 0;
 
+	private Vector2 _scratchInput;
+
+    private Vector3 _newPos = Vector3.zero;
+
+    private PlayerInput _playerInput;
+
     private void OnEnable()
     {
         mainCam = Camera.main;
@@ -86,6 +93,8 @@ public class Scratchers2D : MonoBehaviour
         _finalResultRenderer.material = ResultMaterial;
 
         workMesh = new Mesh();
+
+        _playerInput =  transform.parent.transform.parent.GetComponent<PlayerInput>();
 	}
 
 	// to ensure we don't scratch until the obscuration has
@@ -103,10 +112,10 @@ public class Scratchers2D : MonoBehaviour
             StageMeshFilter.mesh = workMesh;
 
             StageRenderer.material = UnderlyingMaterial;
-
-            UpdateScratching();
+            if(_playerInput.actions["Move"].ReadValue<Vector2>() != Vector2.zero)
+                UpdateScratching();
         }
-
+		//MouseObject.transform.position = _touchableCollider.transform.position;
         startupTimer += Time.deltaTime;
     }
 
@@ -168,33 +177,24 @@ public class Scratchers2D : MonoBehaviour
 	void UpdateScratching()
 	{
 		Vector3? CurrentPosition = null;
+        _scratchInput = _playerInput.actions["Move"].ReadValue<Vector2>();
+        _newPos += new Vector3(_scratchInput.x, _scratchInput.y, 0) * Time.deltaTime;
+        _newPos.z = 0.97f;
+        MouseObject.transform.localPosition = _newPos;
+        Vector3 position = _newPos;
 
-		if (Input.GetMouseButton(0))
-		{
-			var ray = mainCam.ScreenPointToRay( Input.mousePosition);
+        CurrentPosition = position;
 
-			RaycastHit hitInfo;
+        if ((PreviousPosition != null) &&
+            (CurrentPosition != null))
+        {
+            Debug.Log("StrikeTriangle");
+            StrikeTriangle(
+                (Vector3)PreviousPosition,
+                (Vector3)CurrentPosition);
+        }
 
-			if (_touchableCollider.Raycast( ray, out hitInfo, 20))
-			{
-				Vector3 position = hitInfo.point;
-				MouseObject.transform.position = position;
-
-				position = _touchableCollider.transform.InverseTransformPoint( position);
-
-				CurrentPosition = position;
-
-				if ((PreviousPosition != null) &&
-					(CurrentPosition != null))
-				{
-					StrikeTriangle(
-						(Vector3) PreviousPosition,
-						(Vector3) CurrentPosition);
-				}
-			}
-		}
-
-		PreviousPosition = CurrentPosition;
+        PreviousPosition = CurrentPosition;
 	}
 
 	public void CheckForCompletion(Component sender, object obj)
