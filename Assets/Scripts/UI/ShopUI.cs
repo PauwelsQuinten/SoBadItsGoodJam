@@ -19,6 +19,10 @@ public class ShopUI : MonoBehaviour
     private List<Material> _scratchMaterials = new List<Material>();
     [SerializeField]
     private GameObject _eventSystem;
+    [SerializeField]
+    private GameObject _SpellHolder;
+    [SerializeField]
+    private List<GameObject> _spells = new List<GameObject>();
 
     private GameManager _gameManager;
 
@@ -30,6 +34,7 @@ public class ShopUI : MonoBehaviour
     List<GameObject> _players = new List<GameObject>();
 
     private Spells _currentSpell = Spells.Default;
+    private GameObject _spawnedSpell;
 
     private void OnEnable()
     {
@@ -105,7 +110,25 @@ public class ShopUI : MonoBehaviour
 
     private void ChangeCurrentSpelUI(Spells spell)
     {
+        _currentSpell = spell;
 
+        if (!_spawnedSpell) Destroy(_spawnedSpell);
+
+        switch (_currentSpell)
+        {
+            case Spells.Default:
+                _spawnedSpell = Instantiate(_spells[0], _SpellHolder.transform);
+                break;
+            case Spells.WaterBall:
+                _spawnedSpell = Instantiate(_spells[1], _SpellHolder.transform);
+                break;
+            case Spells.FireBall:
+                _spawnedSpell = Instantiate(_spells[2], _SpellHolder.transform);
+                break;
+            case Spells.AcidBall:
+                _spawnedSpell = Instantiate(_spells[3], _SpellHolder.transform);
+                break;
+        }
     }
 
     private IEnumerator DeleteCardWithDelay(GameObject obj)
