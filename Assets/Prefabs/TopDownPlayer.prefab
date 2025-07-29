@@ -2220,6 +2220,7 @@ GameObject:
   - component: {fileID: 8411704292628995493}
   - component: {fileID: 8759609679930046840}
   - component: {fileID: 8863077610755577864}
+  - component: {fileID: 8194694910245655731}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2330,10 +2331,42 @@ MonoBehaviour:
   _rightWizard: {fileID: 3912106842820908315}
   _cardHolder: {fileID: 3999621431073787439}
   _cardPrefab: {fileID: 5929374532322924044, guid: 390d6e8fc2ff0e44eb515e99955cba90, type: 3}
-  RenderTextures:
+  _renderTextures:
   - {fileID: 8400000, guid: 1ffd209dd086d4340b37c9da3c3f8df3, type: 2}
   - {fileID: 8400000, guid: c80e3463e1f293b4ea572de2041c29e4, type: 2}
+  _scratchMaterials:
+  - {fileID: 2100000, guid: 60c336b046a8e410789d7377296438df, type: 2}
+  - {fileID: 2100000, guid: 271850ca663635b47958e5ad876db150, type: 2}
   _eventSystem: {fileID: 5328558259770776863}
+--- !u!114 &8194694910245655731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5159889618791938104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beea91935ee6d2746a0a632c4f077ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 3bfa2716020a4dd4980e0549f5d8b85f, type: 2}
+  Responses:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8863077610755577864}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: ScratchingCompleted
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5328558259770776863
 GameObject:
   m_ObjectHideFlags: 0

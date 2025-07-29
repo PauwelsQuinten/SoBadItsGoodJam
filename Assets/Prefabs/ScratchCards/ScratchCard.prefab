@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &2289011572087488015
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &2396587581626748876
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &3592978255745314090
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &5473394699380733981
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &5586075517235588401
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &5929374532322924044
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,8 +761,8 @@ MonoBehaviour:
   StageCamera: {fileID: 0}
   StageRenderer: {fileID: 0}
   StageMeshFilter: {fileID: 0}
-  RT: {fileID: 8400000, guid: 1ffd209dd086d4340b37c9da3c3f8df3, type: 2}
-  UnlitMaterial: {fileID: 2100000, guid: 60c336b046a8e410789d7377296438df, type: 2}
+  RT: {fileID: 0}
+  UnlitMaterial: {fileID: 0}
   MinScratchStreakWidth: 0.05
   MaxScratchStreakWidth: 0.1
   ScratchMarkSpacing: 0.03
@@ -771,6 +771,8 @@ MonoBehaviour:
   _scratchLayer:
     serializedVersion: 2
     m_Bits: 128
+  _scratchSpeed: 1.5
+  _scratchingDone: {fileID: 11400000, guid: 3bfa2716020a4dd4980e0549f5d8b85f, type: 2}
 --- !u!114 &1067315797768080263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,7 +786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  - {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
   Responses:
   - m_PersistentCalls:
       m_Calls:
@@ -993,7 +995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &7558052557667662636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,7 +1062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &7568510543632735749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}
 --- !u!1 &7724007498184512504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,4 +1196,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdfd7b455662f247b12a8bf0d5bd4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scratchedSpot: {fileID: 11400000, guid: c1dcbd0f2d1f9894e996d84dfb63cb01, type: 2}
+  _scratchedSpot: {fileID: 11400000, guid: bb5726f7d275d0b4f8592c95d300fbac, type: 2}

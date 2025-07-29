@@ -38,6 +38,10 @@ public class Scratchers2D : MonoBehaviour
 
     [SerializeField]
     private LayerMask _scratchLayer;
+    [SerializeField]
+    private float _scratchSpeed = 1;
+    [SerializeField]
+    private GameEvent _scratchingDone;
 
 	Material UnderlyingMaterial;
 
@@ -61,8 +65,19 @@ public class Scratchers2D : MonoBehaviour
 
     private PlayerInput _playerInput;
 
-    private void OnEnable()
+    private bool _initialized = false;
+
+
+
+    public void initialize()
     {
+        workMesh = new Mesh();
+        workMesh.Clear();
+        workMesh.RecalculateBounds();
+        workMesh.RecalculateNormals();
+
+        StageMeshFilter.mesh = workMesh;
+        StageMeshFilter.transform.eulerAngles = new Vector3(0, 0, 0);
         mainCam = Camera.main;
 
         int randomSpell = Random.Range(0, 4);
@@ -95,10 +110,11 @@ public class Scratchers2D : MonoBehaviour
         ResultMaterial.mainTexture = RT;
         _finalResultRenderer.material = ResultMaterial;
 
-        workMesh = new Mesh();
-
         _playerInput =  transform.parent.transform.parent.GetComponent<PlayerInput>();
-	}
+
+        _initialized = true;
+
+    }
 
 	// to ensure we don't scratch until the obscuration has
 	// had a chance to render properly.
@@ -107,6 +123,7 @@ public class Scratchers2D : MonoBehaviour
 
     void Update()
     {
+        if (!_initialized) return;
         if (startupTimer > startupDelay)
         {
             // As soon as we're ready, wipe out the mesh utterly so that
@@ -179,9 +196,10 @@ public class Scratchers2D : MonoBehaviour
 
 	void UpdateScratching()
 	{
-		Vector3? CurrentPosition = null;
+        Vector3? CurrentPosition = null;
+
         _scratchInput = _playerInput.actions["Move"].ReadValue<Vector2>();
-        _newPos += new Vector3(_scratchInput.x, _scratchInput.y, 0) * Time.deltaTime;
+        _newPos += new Vector3(_scratchInput.x, _scratchInput.y, 0) * _scratchSpeed * Time.deltaTime;
         _newPos.z = 0.5f;
         MouseObject.transform.localPosition = _newPos;
 
@@ -191,17 +209,21 @@ public class Scratchers2D : MonoBehaviour
         {
             Vector3 position = hitInfo.point;
 
-            CurrentPosition = position;
-            Debug.Log("hit scratch area");
+            position = _touchableCollider.transform.InverseTransformPoint(position);
 
-            if ((PreviousPosition != null) && (CurrentPosition != null))
+            CurrentPosition = position;
+
+            if ((PreviousPosition != null) &&
+                (CurrentPosition != null))
             {
-                StrikeTriangle((Vector3)PreviousPosition, (Vector3)CurrentPosition);
+                StrikeTriangle(
+                    (Vector3)PreviousPosition,
+                    (Vector3)CurrentPosition);
             }
         }
 
         PreviousPosition = CurrentPosition;
-	}
+    }
 
 	public void CheckForCompletion(Component sender, object obj)
 	{
@@ -252,5 +274,7 @@ public class Scratchers2D : MonoBehaviour
 
         StageMeshFilter.mesh = workMesh;
 		StageMeshFilter.transform.eulerAngles = new Vector3(0, 180, 0);
+
+        _scratchingDone.Raise(this, _currentSpell);
     }
 }

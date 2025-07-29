@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 7478386824764880531}
   m_Layer: 0
   m_Name: StageRenderer
-  m_TagString: Untagged
+  m_TagString: StageRenderer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
