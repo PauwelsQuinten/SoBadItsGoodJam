@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public void PlayerJoined(PlayerInput prefab)
     {
         GameObject player = prefab.gameObject;
+        DontDestroyOnLoad(player);
         Players.Add(player);
         player.name = $"Player{Players.Count}";
         _playerJoined.Raise(this, Players.Count - 1);
