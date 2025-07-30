@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -59,5 +60,24 @@ public class GameManager : MonoBehaviour
     public void PlayPressed(Component sender, object obj)
     {
         SceneManager.LoadScene(1);
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
+
+    private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Gameplay") initializeGameplayScene();
+    }
+
+    private void initializeGameplayScene()
+    {
+        foreach(GameObject player in Players)
+        {
+            List<GameObject> cams = GameObject.FindGameObjectsWithTag("PlayerCam").ToList();
+            foreach(GameObject cam in cams)
+            {
+                if (cam.name != "PlayerCamera") return;
+                cam.GetComponent<Camera>().enabled = true;
+            }
+        }
     }
 }

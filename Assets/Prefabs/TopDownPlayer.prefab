@@ -15,11 +15,11 @@ GameObject:
   - component: {fileID: 8048289157566491140}
   m_Layer: 6
   m_Name: PlayerCamera
-  m_TagString: Untagged
+  m_TagString: PlayerCam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6679616085573608428
 Transform:
   m_ObjectHideFlags: 0
@@ -42,7 +42,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993867574211858072}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -889,7 +889,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4055935263452206845, guid: 71e95c933df12cb4fab92c76f133410a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 19
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4055935263452206845, guid: 71e95c933df12cb4fab92c76f133410a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1001,7 +1001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5195447314263430745, guid: 71e95c933df12cb4fab92c76f133410a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -10
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 5195447314263430745, guid: 71e95c933df12cb4fab92c76f133410a, type: 3}
       propertyPath: m_AnchoredPosition.y

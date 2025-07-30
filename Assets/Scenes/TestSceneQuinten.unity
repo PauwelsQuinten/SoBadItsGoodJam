@@ -274,7 +274,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInputManager: {fileID: 137057707}
-  _player01Spawn: {fileID: 1534178832}
+  _playerSpawnPoints:
+  - {fileID: 1652389961}
+  - {fileID: 9872254}
+  _playerMaterials:
+  - {fileID: 2100000, guid: 5c1391c99e4d77e4abdb5bf6b261fbe0, type: 2}
+  - {fileID: 2100000, guid: 8537395569a46314bb7684000f9b73f9, type: 2}
+  _playerJoined: {fileID: 11400000, guid: ce920b66ee3f4254bae5c9353dfb8acc, type: 2}
 --- !u!114 &137057707
 MonoBehaviour:
   m_ObjectHideFlags: 0

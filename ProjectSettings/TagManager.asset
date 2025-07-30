@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mouse
   - StageRenderer
+  - PlayerCam
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,6 @@ TagManager:
   - Player
   - ScratchArea
   - Obstacles
-  - 
   - 
   - 
   - 

@@ -77,7 +77,7 @@ public class Scratchers2D : MonoBehaviour
         workMesh.RecalculateNormals();
 
         StageMeshFilter.mesh = workMesh;
-        StageMeshFilter.transform.eulerAngles = new Vector3(0, 0, 0);
+        StageMeshFilter.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         mainCam = Camera.main;
 
         int randomSpell = Random.Range(0, 4);
@@ -187,7 +187,7 @@ public class Scratchers2D : MonoBehaviour
 		workMesh.RecalculateNormals();
 
 		StageMeshFilter.mesh = workMesh;
-	}
+    }
 
 	// We scratch from this position to the current position,
 	// which mean swe need two consecutive good touches for
@@ -273,7 +273,7 @@ public class Scratchers2D : MonoBehaviour
         workMesh.RecalculateNormals();
 
         StageMeshFilter.mesh = workMesh;
-		StageMeshFilter.transform.eulerAngles = new Vector3(0, 180, 0);
+        StageMeshFilter.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
 
         _scratchingDone.Raise(this, _currentSpell);
     }
