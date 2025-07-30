@@ -9,14 +9,19 @@ public class GameManager : MonoBehaviour
     private PlayerInputManager _playerInputManager;
 
     [SerializeField]
-    private Transform _player01Spawn;
+    private List<Transform> _playerSpawnPoints;
+    [SerializeField]
+    private List<Material> _playerMaterials;
+
+    [SerializeField]
+    private GameEvent _playerJoined;
 
     private int _playersJoined = 0;
-    private List<GameObject> Players {  set;  get; }
+    private List<GameObject> Players {  set;  get; } = new List<GameObject>();
 
     private void Awake()
     {
-        Players = new List<GameObject>();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void PlayerJoined(PlayerInput prefab)
@@ -24,15 +29,24 @@ public class GameManager : MonoBehaviour
         GameObject player = prefab.gameObject;
         Players.Add(player);
         player.name = $"Player{Players.Count}";
+        _playerJoined.Raise(this, Players.Count - 1);
         switch (_playersJoined)
         {
             case 0:
-                player.transform.position = _player01Spawn.position;
+                player.transform.position = _playerSpawnPoints[0].position;
+                player.transform.rotation = _playerSpawnPoints[0].rotation;
+                player.GetComponentInChildren<SkinnedMeshRenderer>().material = _playerMaterials[0];
                 Debug.Log("Player 01 Joined");
+                break;
+            case 1:
+                player.transform.position = _playerSpawnPoints[1].position;
+                player.transform.rotation = _playerSpawnPoints[1].rotation;
+                player.GetComponentInChildren<SkinnedMeshRenderer>().material = _playerMaterials[1];
                 break;
             default:
                 break;
         }
+        _playersJoined++;
     }
 
     public List<GameObject> GetCurrentPlayers()
