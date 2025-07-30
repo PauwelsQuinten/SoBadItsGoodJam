@@ -205,7 +205,7 @@ public class Scratchers2D : MonoBehaviour
 
         RaycastHit hitInfo;
 
-        if (Physics.Raycast(MouseObject.transform.position, Vector3.down, out hitInfo, 100f, _scratchLayer))
+        if (Physics.Raycast(MouseObject.transform.position, MouseObject.transform.forward, out hitInfo, 100f, _scratchLayer))
         {
             Vector3 position = hitInfo.point;
 
