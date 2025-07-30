@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Mouse
+  - StageRenderer
   layers:
   - Default
   - TransparentFX
@@ -12,8 +13,9 @@ TagManager:
   - GUI
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - ScratchArea
+  - Obstacles
   - 
   - 
   - 

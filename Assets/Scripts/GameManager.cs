@@ -19,18 +19,24 @@ public class GameManager : MonoBehaviour
         Players = new List<GameObject>();
     }
 
-    public void PlayerJoined(GameObject prefab)
+    public void PlayerJoined(PlayerInput prefab)
     {
-        Players.Add(prefab);
-
+        GameObject player = prefab.gameObject;
+        Players.Add(player);
+        player.name = $"Player{Players.Count}";
         switch (_playersJoined)
         {
             case 0:
-                prefab.transform.position = _player01Spawn.position;
+                player.transform.position = _player01Spawn.position;
                 Debug.Log("Player 01 Joined");
                 break;
             default:
                 break;
         }
+    }
+
+    public List<GameObject> GetCurrentPlayers()
+    {
+        return Players;
     }
 }

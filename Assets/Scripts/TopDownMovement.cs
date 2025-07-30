@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,54 +10,66 @@ public class TopDownMovement : MonoBehaviour
     private Rigidbody _rb;
     [SerializeField]
     private float _movingSpeed = 5, _rotatingSpeed = 1;
+
+    //Audio
     [SerializeField]
     private AudioClip _runningSound;
     [SerializeField]
     private SoundManager _soundManager;
 
-    private Vector2 _lastPosition, _velocity;
-
-    private bool _canMove = true;
-
+    private Vector2 _velocity;
     private Vector3 _moveDirection;
+    private float _cameraXAxis, _yAxis, _xAxis;
+
+    private Animator _playerAnimations;
+
 
     private void Start()
     {
-        _lastPosition = transform.position;
-
         if(_soundManager != null)_soundManager.LoadSoundWithOutPath("walking", _runningSound);
+        if (_playerAnimations == null)_playerAnimations = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
-    { 
-        if (!_canMove) return;
-
-        if (_moveDirection != Vector3.zero)
-        {
-            float currentAngle = transform.rotation.eulerAngles.y;
-            float targetAngle = Mathf.Atan2(-_moveDirection.z, _moveDirection.x) * Mathf.Rad2Deg + 90f;
-            float angle = Mathf.LerpAngle(currentAngle, targetAngle, _rotatingSpeed * Time.deltaTime);
-            Debug.Log(angle);
-            _rb.Move(transform.position + ((_moveDirection * _movingSpeed) * Time.fixedDeltaTime), Quaternion.identity);
-            transform.rotation = Quaternion.Euler(0, angle, 0);
-        }
-
-        //Small velocity calculation -- Nothing to worry about
-        Vector2  currentPosition = transform.position;
-        _velocity = (currentPosition - _lastPosition) / Time.deltaTime;
-        _lastPosition = currentPosition;
-
-        if(_soundManager != null) PlayerSound();
-    }
-
-    public void Move(InputAction.CallbackContext ctx)
     {
-        float yAxis = ctx.ReadValue<Vector2>().y;
-        float xAxis = ctx.ReadValue<Vector2>().x;
+        float rotationChange;
+        //When there is no input the character should not move
+        //if (_cameraXAxis == 0) rotationChange = 0;
+        if (_cameraXAxis == 0 && _yAxis == 0 && _xAxis == 0)
+        {
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+        }
+        else
+        {
+            rotationChange = _cameraXAxis * (_rotatingSpeed * 100) * Time.fixedDeltaTime;
+            Vector3 currentRotation = _rb.rotation.eulerAngles;
+            currentRotation.y += rotationChange;
+            Quaternion newRotation = Quaternion.Euler(currentRotation);
 
-        _moveDirection = new Vector3(xAxis, 0, yAxis);
-        Debug.Log("Player is moving !!");
+            _rb.Move(transform.position + ((_moveDirection * _movingSpeed) * Time.fixedDeltaTime), newRotation);
+        }
     }
+
+    public void MovePlayer(InputAction.CallbackContext ctx)
+    {
+         _yAxis = ctx.ReadValue<Vector2>().y;
+         _xAxis = ctx.ReadValue<Vector2>().x;
+
+        _moveDirection = transform.forward * _yAxis;
+        _moveDirection += transform.right * _xAxis;
+
+        if (_moveDirection != Vector3.zero) _playerAnimations.SetBool("isMoving", true);
+        else _playerAnimations.SetBool("isMoving", false);
+
+    }
+
+    public void MoveCamera(InputAction.CallbackContext ctx)
+    { 
+
+        _cameraXAxis = ctx.ReadValue<Vector2>().x;
+    }
+
 
     private void PlayerSound()
     {
@@ -73,16 +86,4 @@ public class TopDownMovement : MonoBehaviour
         }
     }
 
-    public void ChangeCanMove(Component sender, object obj)
-    {
-        bool? canMove = obj as bool?;
-
-        _canMove = (bool)canMove;
-    }
-
-    public void MoveDirectionChanged(Component sender, object obj)
-    {
-        Vector2? movementInput = obj as Vector2?;
-        _moveDirection = new Vector3(movementInput.Value.x, 0, movementInput.Value.y);
-    }
 }
