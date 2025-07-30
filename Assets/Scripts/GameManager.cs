@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,5 +53,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> GetCurrentPlayers()
     {
         return Players;
+    }
+
+    public void PlayPressed(Component sender, object obj)
+    {
+        SceneManager.LoadScene(1);
     }
 }

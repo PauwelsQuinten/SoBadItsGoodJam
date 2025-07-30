@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class StartScreenUi : MonoBehaviour
     private GameObject _startButton;
     [SerializeField]
     private EventSystem _eventSystem;
+    [SerializeField]
+    private GameEvent _pressedPlay;
 
     private int _buttonStartSize;
 
@@ -28,14 +31,13 @@ public class StartScreenUi : MonoBehaviour
         StartCoroutine(EnlargeButtons(index));
         if (index == 1)
         {
-            _startButton.SetActive(true);
-            _eventSystem.firstSelectedGameObject = _startButton;
+            StartCoroutine(EnablePlayButton());
         }
     }
 
     public void StartPressed()
     {
-        Debug.Log("pressed");
+        _pressedPlay.Raise(this, EventArgs.Empty);
     }
 
     private IEnumerator EnlargeButtons(int index)
@@ -76,5 +78,12 @@ public class StartScreenUi : MonoBehaviour
         button.sizeDelta = new Vector2(newSize, newSize);
         xSize = newSize;
         ySize = newSize;
+    }
+
+    private IEnumerator EnablePlayButton()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _startButton.SetActive(true);
+        _eventSystem.firstSelectedGameObject = _startButton;
     }
 }
