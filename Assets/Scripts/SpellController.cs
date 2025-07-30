@@ -4,6 +4,8 @@ public class SpellController : MonoBehaviour
 {
     [SerializeField]
     private float _lifeTime = 10;
+    [SerializeField]
+    private SpellData _spellData;
 
     private float _timer = 0;
 
@@ -17,7 +19,9 @@ public class SpellController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "") return;
+        if (other.gameObject.tag != "Player") return;
+        if (other.gameObject.GetComponent<PlayerHealth>() != null)
+            other.gameObject.GetComponent<PlayerHealth>().DoDamage(_spellData.amountOfDamage);
 
         Debug.Log($"Hit player: {other.gameObject.name}");
 

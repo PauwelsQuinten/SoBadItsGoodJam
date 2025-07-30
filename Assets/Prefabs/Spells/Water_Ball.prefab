@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4039649760781643234}
   - component: {fileID: 6292316576845839655}
   m_Layer: 0
-  m_Name: Water_Spell
+  m_Name: Water_Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,3 +204,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lifeTime: 10
+  _spellData: {fileID: 11400000, guid: 017855e674899814e90f36e1d9d38eb9, type: 2}

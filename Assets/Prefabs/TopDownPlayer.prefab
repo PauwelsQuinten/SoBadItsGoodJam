@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 509995862165169329}
   - component: {fileID: 8941350109708765654}
   - component: {fileID: 2673120584121549777}
+  - component: {fileID: 5013581590528313969}
   m_Layer: 6
   m_Name: TopDownPlayer
   m_TagString: Player
@@ -226,7 +227,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2729289851841432589}
-  m_Material: {fileID: 13400000, guid: 36105b5cd24ac454bbb7986fa0520b62, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -440,6 +441,19 @@ MonoBehaviour:
   _castPoint: {fileID: 7818464273477999122}
   _spellSpeed: 500
   _spellType: 0
+--- !u!114 &5013581590528313969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729289851841432589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d906dd8c578c59a4aa4a37e78eac3dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!1 &3812637324838366450
 GameObject:
   m_ObjectHideFlags: 0
