@@ -11,7 +11,11 @@ public class StartScreenUi : MonoBehaviour
     [SerializeField]
     private List<GameObject> _buttons = new List<GameObject>();
     [SerializeField]
+    private Sprite _buttonReady;
+    [SerializeField]
     private List<GameObject> _controllers = new List<GameObject>();
+    [SerializeField]
+    private List<Sprite> _controllersReady = new List<Sprite>();
     [SerializeField]
     private GameObject _startButton;
     [SerializeField]
@@ -62,8 +66,8 @@ public class StartScreenUi : MonoBehaviour
 
         newSize = _buttonStartSize;
 
-        if (index == 0) _controllers[0].GetComponent<Image>().color = Color.cyan;
-        else _controllers[1].GetComponent<Image>().color = Color.red;
+        if (index == 0) _controllers[0].GetComponent<Image>().sprite = _controllersReady[0];
+        else _controllers[1].GetComponent<Image>().sprite = _controllersReady[1];
 
         yield return new WaitForSeconds(0.2f);
 
@@ -78,6 +82,8 @@ public class StartScreenUi : MonoBehaviour
         button.sizeDelta = new Vector2(newSize, newSize);
         xSize = newSize;
         ySize = newSize;
+
+        _buttons[index].GetComponent<Image>().sprite = _buttonReady;
     }
 
     private IEnumerator EnablePlayButton()
