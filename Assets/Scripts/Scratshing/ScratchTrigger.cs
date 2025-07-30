@@ -9,7 +9,6 @@ public class ScratchTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!Mouse.current.leftButton.isPressed) return;
         if (other.tag != "Mouse") return;
 
         _scratchedSpot.Raise(this, EventArgs.Empty);
