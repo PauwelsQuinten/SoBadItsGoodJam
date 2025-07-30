@@ -112,7 +112,7 @@ public class ShopUI : MonoBehaviour
     {
         _currentSpell = spell;
 
-        if (!_spawnedSpell) Destroy(_spawnedSpell);
+        if (_spawnedSpell != null) Destroy(_spawnedSpell);
 
         switch (_currentSpell)
         {
