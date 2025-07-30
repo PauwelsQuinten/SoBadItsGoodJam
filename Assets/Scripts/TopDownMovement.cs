@@ -21,10 +21,13 @@ public class TopDownMovement : MonoBehaviour
     private Vector3 _moveDirection;
     private float _cameraXAxis, _yAxis, _xAxis;
 
+    private Animator _playerAnimations;
+
 
     private void Start()
     {
         if(_soundManager != null)_soundManager.LoadSoundWithOutPath("walking", _runningSound);
+        if (_playerAnimations == null)_playerAnimations = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
@@ -54,8 +57,11 @@ public class TopDownMovement : MonoBehaviour
          _xAxis = ctx.ReadValue<Vector2>().x;
 
         _moveDirection = transform.forward * _yAxis;
-        _moveDirection += transform.right * _xAxis; 
-        
+        _moveDirection += transform.right * _xAxis;
+
+        if (_moveDirection != Vector3.zero) _playerAnimations.SetBool("isMoving", true);
+        else _playerAnimations.SetBool("isMoving", false);
+
     }
 
     public void MoveCamera(InputAction.CallbackContext ctx)
