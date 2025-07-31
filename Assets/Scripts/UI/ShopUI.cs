@@ -82,11 +82,11 @@ public class ShopUI : MonoBehaviour
 
     public void ReadyUp()
     {
-        if(_isSecondPlayer)_readyButton.image.sprite = _readyUpSprite[0];
-        else _readyButton.image.sprite = _readyUpSprite[1];
+        if(_isSecondPlayer)_readyButton.image.sprite = _readyUpSprite[1];
+        else _readyButton.image.sprite = _readyUpSprite[0];
         SpriteState newSpriteState = _readyButton.spriteState;
-        if (_isSecondPlayer) newSpriteState.selectedSprite = _readyUpSpriteHover[0];
-        else newSpriteState.selectedSprite = _readyUpSpriteHover[1];
+        if (_isSecondPlayer) newSpriteState.selectedSprite = _readyUpSpriteHover[1];
+        else newSpriteState.selectedSprite = _readyUpSpriteHover[0];
         _readyButton.spriteState = newSpriteState;
         Navigation newNavigation = _readyButton.navigation;
         newNavigation.selectOnLeft = null;
