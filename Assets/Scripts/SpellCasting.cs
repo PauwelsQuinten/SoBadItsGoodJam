@@ -54,6 +54,7 @@ public class SpellCasting : MonoBehaviour
             spawnedObj.GetComponent<Rigidbody>().AddForce(_castPoint.forward * _spellSpeed, ForceMode.Impulse);
              _amountOfMana -= _spell[_spellType].GetComponent<SpellController>().SpellData.amountOfMana;
             _manaBar.PlayerMana = (_amountOfMana / _maxMana) * 100;
+            timer = 0;
         }
 
         Debug.Log($"Spell \" {_spell[_spellType].name} \" casted");
