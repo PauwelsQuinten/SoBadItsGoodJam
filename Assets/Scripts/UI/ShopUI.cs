@@ -32,7 +32,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField]
     private List<Sprite> _readyUpSpriteHover = new List<Sprite>();
     [SerializeField]
-    private GameObject _shopUI;
+    private List<GameObject> _shopUI = new List<GameObject>();
     [SerializeField]
     private GameEvent _ReadiedUp;
 
@@ -106,7 +106,11 @@ public class ShopUI : MonoBehaviour
 
     public void EnableUI(bool state)
     {
-        _shopUI.SetActive(state);
+        foreach(GameObject go in _shopUI)
+        {
+            go.SetActive(state);
+        }
+        transform.parent.GetComponent<TopDownMovement>().enabled = true;
     }
 
     private void SpawnCard()
