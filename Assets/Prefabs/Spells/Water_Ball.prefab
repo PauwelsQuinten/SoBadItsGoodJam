@@ -204,4 +204,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lifeTime: 10
-  _spellData: {fileID: 11400000, guid: 017855e674899814e90f36e1d9d38eb9, type: 2}
+  SpellData: {fileID: 11400000, guid: 017855e674899814e90f36e1d9d38eb9, type: 2}

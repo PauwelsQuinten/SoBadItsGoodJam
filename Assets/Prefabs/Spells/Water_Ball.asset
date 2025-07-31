@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: Water Ball
   amountOfDamage: 7
+  amountOfMana: 10

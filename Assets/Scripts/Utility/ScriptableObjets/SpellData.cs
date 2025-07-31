@@ -5,4 +5,5 @@ public class SpellData : ScriptableObject
 {
     public string spellName;
     public float amountOfDamage;
+    public float amountOfMana;
 }
