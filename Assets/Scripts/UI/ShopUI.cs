@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
@@ -23,6 +25,16 @@ public class ShopUI : MonoBehaviour
     private GameObject _SpellHolder;
     [SerializeField]
     private List<GameObject> _spells = new List<GameObject>();
+    [SerializeField]
+    private Button _readyButton;
+    [SerializeField]
+    private List<Sprite> _readyUpSprite = new List<Sprite>();
+    [SerializeField]
+    private List<Sprite> _readyUpSpriteHover = new List<Sprite>();
+    [SerializeField]
+    private GameObject _shopUI;
+    [SerializeField]
+    private GameEvent _ReadiedUp;
 
     private GameManager _gameManager;
 
@@ -44,7 +56,9 @@ public class ShopUI : MonoBehaviour
 
         _players = _gameManager.GetCurrentPlayers();
 
-        if(_players.Count > 1)
+        StartCoroutine(EnableReadyButton());
+
+        if (_players.Count > 1)
         {
             if (_players[1] == transform.parent.gameObject)
             {
@@ -66,12 +80,33 @@ public class ShopUI : MonoBehaviour
         SpawnCard();
     }
 
+    public void ReadyUp()
+    {
+        if(_isSecondPlayer)_readyButton.image.sprite = _readyUpSprite[0];
+        else _readyButton.image.sprite = _readyUpSprite[1];
+        SpriteState newSpriteState = _readyButton.spriteState;
+        if (_isSecondPlayer) newSpriteState.selectedSprite = _readyUpSpriteHover[0];
+        else newSpriteState.selectedSprite = _readyUpSpriteHover[1];
+        _readyButton.spriteState = newSpriteState;
+        Navigation newNavigation = _readyButton.navigation;
+        newNavigation.selectOnLeft = null;
+        newNavigation.selectOnRight = null;
+        _readyButton.navigation = newNavigation;
+        _readyButton.enabled = false;
+        _ReadiedUp.Raise(this, EventArgs.Empty);
+    }
+
     public void ScratchingCompleted(Component sender, object obj)
     {
         if (sender.transform.parent.transform.parent.gameObject != transform.parent.gameObject) return;
         ChangeCurrentSpelUI((Spells)(obj as Spells?));
         _eventSystem.SetActive(true);
         StartCoroutine(DeleteCardWithDelay(sender.gameObject));
+    }
+
+    public void EnableUI(bool state)
+    {
+        _shopUI.SetActive(state);
     }
 
     private void SpawnCard()
@@ -137,4 +172,9 @@ public class ShopUI : MonoBehaviour
         Destroy(obj);
     }
 
+    private IEnumerator EnableReadyButton()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _readyButton.onClick.AddListener(ReadyUp);
+    }
 }

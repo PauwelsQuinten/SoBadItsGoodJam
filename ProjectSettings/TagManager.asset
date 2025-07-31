@@ -7,6 +7,7 @@ TagManager:
   - Mouse
   - StageRenderer
   - PlayerCam
+  - Canvas
   layers:
   - Default
   - TransparentFX

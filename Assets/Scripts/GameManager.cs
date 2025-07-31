@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     private int _playersJoined = 0;
     private List<GameObject> Players {  set;  get; } = new List<GameObject>();
 
+    private int _amountOfPlayersReady;
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -63,6 +65,20 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
     }
 
+    public void PlayerReadiedUp(Component sender, object obj)
+    {
+        _amountOfPlayersReady++;
+        if (_amountOfPlayersReady != Players.Count) return;
+
+        List<GameObject> canvases = GameObject.FindGameObjectsWithTag("Canvas").ToList();
+        foreach (GameObject canv in canvases)
+        {
+            ShopUI shopUI = canv.GetComponent<ShopUI>();
+            shopUI.EnableUI(false);
+            shopUI.enabled = false;
+        }
+    }
+
     private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Gameplay") initializeGameplayScene();
@@ -70,14 +86,19 @@ public class GameManager : MonoBehaviour
 
     private void initializeGameplayScene()
     {
-        foreach(GameObject player in Players)
+        List<GameObject> cams = GameObject.FindGameObjectsWithTag("PlayerCam").ToList();
+        foreach (GameObject cam in cams)
         {
-            List<GameObject> cams = GameObject.FindGameObjectsWithTag("PlayerCam").ToList();
-            foreach(GameObject cam in cams)
-            {
-                if (cam.name != "PlayerCamera") return;
-                cam.GetComponent<Camera>().enabled = true;
-            }
+            if (cam.name != "PlayerCamera") return;
+            cam.GetComponent<Camera>().enabled = true;
+        }
+        List<GameObject> canvases = GameObject.FindGameObjectsWithTag("Canvas").ToList();
+        foreach (GameObject canv in canvases)
+        {
+            Canvas canvas = canv.GetComponent<Canvas>();
+            ShopUI shopUI = canv.GetComponent<ShopUI>();
+            canvas.enabled = true;
+            shopUI.enabled = true;
         }
     }
 }
