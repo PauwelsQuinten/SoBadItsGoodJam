@@ -50,18 +50,19 @@ public class SpellCasting : MonoBehaviour
 
         if (_amountOfMana > 0) 
         {
-            GameObject spawnedObj = Instantiate(_spell[_spellType], _castPoint.position, Quaternion.Euler(_castPoint.forward));
-            spawnedObj.GetComponent<Rigidbody>().AddForce(_castPoint.forward * _spellSpeed, ForceMode.Impulse);
-            spawnedObj.GetComponent<SpellController>().Sender = this.gameObject;
-            _amountOfMana -= _spell[_spellType].GetComponent<SpellController>().SpellData.amountOfMana;
+            GameObject spawnedObj = Instantiate(_spell[_spellType], _castPoint.position, _castPoint.rotation);
+            spawnedObj.GetComponent<Rigidbody>().AddForce(_castPoint.forward * _spellSpeed,ForceMode.Impulse);
+             _amountOfMana -= _spell[_spellType].GetComponent<SpellController>().SpellData.amountOfMana;
             _manaBar.PlayerMana = (_amountOfMana / _maxMana) * 100;
             timer = 0;
         }
+
+        Debug.Log($"Spell \" {_spell[_spellType].name} \" casted");
+        Debug.Log($" {gameObject.name} has {_amountOfMana} mana left");
     }
 
     public void ResetMana()
     {
         _amountOfMana = _maxMana;
-        _manaBar.PlayerMana = (_amountOfMana / _maxMana) * 100;
     }
 }
