@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Mouse
   - StageRenderer
+  - PlayerCam
+  - Canvas
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,6 @@ TagManager:
   - Player
   - ScratchArea
   - Obstacles
-  - 
   - 
   - 
   - 
