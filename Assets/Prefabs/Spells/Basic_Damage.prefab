@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4474845658385923129}
@@ -102,7 +102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4686044030801188855
 Transform:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 2100000, guid: f13806ac8c75e5647a50af86e9276034, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -164,7 +164,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Time: 0.5
-  m_PreviewTimeScale: 0.1
+  m_PreviewTimeScale: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -233,7 +233,7 @@ TrailRenderer:
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
-  m_ApplyActiveColorSpace: 1
+  m_ApplyActiveColorSpace: 0
 --- !u!1 &6230696858039092553
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,13 +260,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6230696858039092553}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4474845658385923129}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &8534108412345833387
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6230696858039092553}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 5.94
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -460,8 +460,8 @@ ParticleSystem:
       maxColor: {r: 0.7830189, g: 0.16620687, b: 0.16620687, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.8018868, g: 0.10969208, b: 0.10969208, a: 1}
-        key1: {r: 0.7924528, g: 0.3698159, b: 0.13830544, a: 1}
+        key0: {r: 0.4860984, g: 0.109803915, b: 0.8, a: 1}
+        key1: {r: 0.8207547, g: 0.18195976, b: 0.76657164, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -898,9 +898,9 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
-    angle: 25
-    length: 5
+    type: 8
+    angle: 17.04
+    length: 2.07
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0.5
     donutRadius: 0.2
@@ -985,7 +985,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.1
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -1043,7 +1043,7 @@ ParticleSystem:
           m_RotationOrder: 4
     arc:
       value: 360
-      mode: 1
+      mode: 0
       spread: 0
       speed:
         serializedVersion: 2
