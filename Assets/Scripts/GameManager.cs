@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private int _player2Score;
 
     private List<GameObject> _spawnPoints = new List<GameObject>();
+    private List<GameObject> _HudUI = new List<GameObject>();
 
     private void Awake()
     {
@@ -102,7 +103,13 @@ public class GameManager : MonoBehaviour
 
         foreach(GameObject player in Players)
         {
-            player.GetComponent<PlayerHealth>().Health = player.GetComponent<PlayerHealth>().MaxHealth;
+            player.GetComponent<PlayerHealth>().ResetHealth();
+            player.GetComponent<SpellCasting>().ResetMana();
+        }
+
+        foreach (GameObject hud in _HudUI)
+        {
+            hud.SetActive(true);
         }
     }
 
@@ -121,6 +128,11 @@ public class GameManager : MonoBehaviour
             Players[1].transform.position = _spawnPoints[0].transform.position + new Vector3(0, 1.5f, 0);
             Players[0].transform.rotation = _spawnPoints[1].transform.rotation;
             Players[1].transform.rotation = _spawnPoints[0].transform.rotation;
+        }
+
+        foreach (GameObject hud in _HudUI)
+        {
+            hud.SetActive(false);
         }
 
         int index = 0;
@@ -155,6 +167,11 @@ public class GameManager : MonoBehaviour
 
     private void initializeGameplayScene()
     {
+        _HudUI = GameObject.FindGameObjectsWithTag("HUD").ToList();
+        foreach (GameObject hud in _HudUI)
+        {
+            hud.SetActive(false);
+        }
         _spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint").ToList();
 
         if(_spawnPoints[0].transform.parent.name == "Spawnpoint_Blue")

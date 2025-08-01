@@ -57,8 +57,11 @@ public class SpellCasting : MonoBehaviour
             _manaBar.PlayerMana = (_amountOfMana / _maxMana) * 100;
             timer = 0;
         }
+    }
 
-        Debug.Log($"Spell \" {_spell[_spellType].name} \" casted");
-        Debug.Log($" {gameObject.name} has {_amountOfMana} mana left");
+    public void ResetMana()
+    {
+        _amountOfMana = _maxMana;
+        _manaBar.PlayerMana = (_amountOfMana / _maxMana) * 100;
     }
 }
