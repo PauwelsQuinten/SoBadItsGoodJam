@@ -55,7 +55,7 @@ public class ShopUI : MonoBehaviour
     private void OnEnable()
     {
 
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.FindAnyObjectByType<GameManager>();
 
         _players = _gameManager.GetCurrentPlayers();
 

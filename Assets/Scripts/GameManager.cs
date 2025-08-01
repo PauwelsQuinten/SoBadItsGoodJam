@@ -32,6 +32,17 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        _spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint").ToList();
+        if (_spawnPoints[0].transform.parent.name == "Spawnpoint_Blue")
+        {
+            _playerSpawnPoints[0] = _spawnPoints[0].transform;
+            _playerSpawnPoints[1] = _spawnPoints[1].transform;
+        }
+        else
+        {
+            _playerSpawnPoints[0] = _spawnPoints[1].transform;
+            _playerSpawnPoints[1] = _spawnPoints[0].transform;
+        }
     }
 
     public void PlayerJoined(PlayerInput prefab)
@@ -47,7 +58,6 @@ public class GameManager : MonoBehaviour
                 player.transform.position = _playerSpawnPoints[0].position;
                 player.transform.rotation = _playerSpawnPoints[0].rotation;
                 player.GetComponentInChildren<SkinnedMeshRenderer>().material = _playerMaterials[0];
-                Debug.Log("Player 01 Joined");
                 break;
             case 1:
                 player.transform.position = _playerSpawnPoints[1].position;
@@ -121,7 +131,7 @@ public class GameManager : MonoBehaviour
             Canvas canvas = canv.GetComponent<Canvas>();
             ShopUI shopUI = canv.GetComponent<ShopUI>();
 
-            if (_player1Score != 2 && _player2Score != 2)
+            if (_player1Score != 3 && _player2Score != 3)
             {
                 canvas.enabled = true;
                 shopUI.enabled = true;
@@ -140,7 +150,7 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "StartScreen") InitializeStartScreen();
         if (scene.name == "Gameplay") initializeGameplayScene();
-        if(scene.name == "Player1Won") InitializeWinScene();
+        if(scene.name == "Player1Won" || scene.name == "Player2Won") InitializeWinScene();
     }
 
     private void initializeGameplayScene()
@@ -181,23 +191,37 @@ public class GameManager : MonoBehaviour
     {
         Destroy(Players[1]);
         Destroy(Players[0]);
+        Players = new List<GameObject>();
+        _playersJoined = 0;
         gameObject.GetComponent<PlayerInputManager>().enabled = false;
     }
 
     private void InitializeStartScreen()
     {
+        gameObject.GetComponent<PlayerInputManager>().EnableJoining();
         StartCoroutine(EnableInputWithDelay());
+        _spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint").ToList();
+        if (_spawnPoints[0].transform.parent.name == "Spawnpoint_Blue")
+        {
+            _playerSpawnPoints[0] = _spawnPoints[0].transform;
+            _playerSpawnPoints[1] = _spawnPoints[1].transform;
+        }
+        else
+        {
+            _playerSpawnPoints[0] = _spawnPoints[1].transform;
+            _playerSpawnPoints[1] = _spawnPoints[0].transform;
+        }
     }
 
     private void CheckForWin()
     {
         if (_player1Score >= 3) SceneManager.LoadScene(2);
-        else if (_player2Score >= 3) Debug.Log("Player2Won");
+        else if (_player2Score >= 3) SceneManager.LoadScene(3);
     }
 
     private IEnumerator EnableInputWithDelay()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         gameObject.GetComponent<PlayerInputManager>().enabled = true;
     }
 }
