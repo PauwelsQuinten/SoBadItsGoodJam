@@ -60,4 +60,9 @@ public class SpellCasting : MonoBehaviour
         Debug.Log($"Spell \" {_spell[_spellType].name} \" casted");
         Debug.Log($" {gameObject.name} has {_amountOfMana} mana left");
     }
+
+    public void ResetMana()
+    {
+        _amountOfMana = _maxMana;
+    }
 }
