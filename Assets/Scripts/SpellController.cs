@@ -17,7 +17,7 @@ public class SpellController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             if (other.gameObject.GetComponent<PlayerHealth>() != null)
-                other.gameObject.GetComponent<PlayerHealth>().DoDamage(_spellData.amountOfDamage);
+                other.gameObject.GetComponent<PlayerHealth>().DoDamage(SpellData.amountOfDamage);
         }
         Destroy(gameObject);
     }
