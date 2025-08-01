@@ -52,7 +52,8 @@ public class SpellCasting : MonoBehaviour
         {
             GameObject spawnedObj = Instantiate(_spell[_spellType], _castPoint.position, Quaternion.Euler(_castPoint.forward));
             spawnedObj.GetComponent<Rigidbody>().AddForce(_castPoint.forward * _spellSpeed, ForceMode.Impulse);
-             _amountOfMana -= _spell[_spellType].GetComponent<SpellController>().SpellData.amountOfMana;
+            spawnedObj.GetComponent<SpellController>().Sender = this.gameObject;
+            _amountOfMana -= _spell[_spellType].GetComponent<SpellController>().SpellData.amountOfMana;
             _manaBar.PlayerMana = (_amountOfMana / _maxMana) * 100;
             timer = 0;
         }
