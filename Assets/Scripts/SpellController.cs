@@ -5,7 +5,7 @@ public class SpellController : MonoBehaviour
     [SerializeField]
     private float _lifeTime = 10;
     [SerializeField]
-    private SpellData _spellData;
+    public SpellData SpellData;
 
     private float _timer = 0;
 
