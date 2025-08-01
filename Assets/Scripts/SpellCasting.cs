@@ -21,7 +21,6 @@ public class SpellCasting : MonoBehaviour
 
         GameObject spawnedObj = Instantiate(_spell[_spellType], _castPoint.position, Quaternion.Euler(_castPoint.forward));
         spawnedObj.GetComponent<Rigidbody>().AddForce(_castPoint.forward * _spellSpeed, ForceMode.Impulse);
-
-        Debug.Log($"Spell \" {_spell[_spellType].name} \" casted");
+        spawnedObj.GetComponent<SpellController>().Sender = this.gameObject;
     }
 }

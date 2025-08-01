@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,6 +23,11 @@ public class GameManager : MonoBehaviour
     private List<GameObject> Players {  set;  get; } = new List<GameObject>();
 
     private int _amountOfPlayersReady;
+
+    private int _player1Score;
+    private int _player2Score;
+
+    private List<GameObject> _spawnPoints = new List<GameObject>();
 
     private void Awake()
     {
@@ -65,10 +71,16 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
     }
 
+    public void BackToLobbyPressed(Component sender, object obj)
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void PlayerReadiedUp(Component sender, object obj)
     {
         _amountOfPlayersReady++;
         if (_amountOfPlayersReady != Players.Count) return;
+        _amountOfPlayersReady = 0;
 
         List<GameObject> canvases = GameObject.FindGameObjectsWithTag("Canvas").ToList();
         foreach (GameObject canv in canvases)
@@ -77,15 +89,78 @@ public class GameManager : MonoBehaviour
             shopUI.EnableUI(false);
             shopUI.enabled = false;
         }
+
+        foreach(GameObject player in Players)
+        {
+            player.GetComponent<PlayerHealth>().Health = player.GetComponent<PlayerHealth>().MaxHealth;
+        }
+    }
+
+    public void PlayerDied(Component sender, object obj)
+    {
+        if (_spawnPoints[0].transform.parent.name == "Spawnpoint_Blue")
+        {
+            Players[0].transform.position = _spawnPoints[0].transform.position + new Vector3(0, 1.5f, 0);
+            Players[1].transform.position = _spawnPoints[1].transform.position + new Vector3(0, 1.5f, 0);
+            Players[0].transform.rotation = _spawnPoints[0].transform.rotation;
+            Players[1].transform.rotation = _spawnPoints[1].transform.rotation;
+        }
+        else
+        {
+            Players[0].transform.position = _spawnPoints[1].transform.position + new Vector3(0, 1.5f, 0);
+            Players[1].transform.position = _spawnPoints[0].transform.position + new Vector3(0, 1.5f, 0);
+            Players[0].transform.rotation = _spawnPoints[1].transform.rotation;
+            Players[1].transform.rotation = _spawnPoints[0].transform.rotation;
+        }
+
+        int index = 0;
+        List<GameObject> canvases = GameObject.FindGameObjectsWithTag("Canvas").ToList();
+        foreach (GameObject canv in canvases)
+        {
+            index++;
+            Canvas canvas = canv.GetComponent<Canvas>();
+            ShopUI shopUI = canv.GetComponent<ShopUI>();
+
+            if (_player1Score != 2 && _player2Score != 2)
+            {
+                canvas.enabled = true;
+                shopUI.enabled = true;
+            }
+
+            GameObject player = canv.transform.parent.gameObject;
+
+            if (player != obj as GameObject) continue;
+            if (index == 1) _player2Score++;
+            else _player1Score++;
+        }
+        CheckForWin();
     }
 
     private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == "StartScreen") InitializeStartScreen();
         if (scene.name == "Gameplay") initializeGameplayScene();
+        if(scene.name == "Player1Won") InitializeWinScene();
     }
 
     private void initializeGameplayScene()
     {
+        _spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint").ToList();
+
+        if(_spawnPoints[0].transform.parent.name == "Spawnpoint_Blue")
+        {
+            Players[0].transform.position = _spawnPoints[0].transform.position + new Vector3(0, 1.5f, 0);
+            Players[1].transform.position = _spawnPoints[1].transform.position + new Vector3(0, 1.5f, 0);
+            Players[0].transform.rotation = _spawnPoints[0].transform.rotation;
+            Players[1].transform.rotation = _spawnPoints[1].transform.rotation;
+        }
+        else
+        {
+            Players[0].transform.position = _spawnPoints[1].transform.position + new Vector3(0, 1.5f, 0);
+            Players[1].transform.position = _spawnPoints[0].transform.position + new Vector3(0, 1.5f, 0);
+            Players[0].transform.rotation = _spawnPoints[1].transform.rotation;
+            Players[1].transform.rotation = _spawnPoints[0].transform.rotation;
+        }
         List<GameObject> cams = GameObject.FindGameObjectsWithTag("PlayerCam").ToList();
         foreach (GameObject cam in cams)
         {
@@ -100,5 +175,29 @@ public class GameManager : MonoBehaviour
             canvas.enabled = true;
             shopUI.enabled = true;
         }
+    }
+
+    private void InitializeWinScene()
+    {
+        Destroy(Players[1]);
+        Destroy(Players[0]);
+        gameObject.GetComponent<PlayerInputManager>().enabled = false;
+    }
+
+    private void InitializeStartScreen()
+    {
+        StartCoroutine(EnableInputWithDelay());
+    }
+
+    private void CheckForWin()
+    {
+        if (_player1Score >= 3) SceneManager.LoadScene(2);
+        else if (_player2Score >= 3) Debug.Log("Player2Won");
+    }
+
+    private IEnumerator EnableInputWithDelay()
+    {
+        yield return new WaitForSeconds(2);
+        gameObject.GetComponent<PlayerInputManager>().enabled = true;
     }
 }

@@ -457,6 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
+  _playerDied: {fileID: 11400000, guid: f4b8934d4e30339428033b8184a0fafb, type: 2}
 --- !u!1 &5328558259770776863
 GameObject:
   m_ObjectHideFlags: 0

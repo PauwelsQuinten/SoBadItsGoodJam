@@ -3,28 +3,25 @@ using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField]
-    private float _maxHealth = 100f;
+    public float MaxHealth = 100f;
 
-    private float _health;
+    public float Health;
+    [SerializeField]
     private GameEvent _playerDied;
 
     private void Start()
     {
-        _health = _maxHealth;
+        Health = MaxHealth;
     }
 
     public void DoDamage(float amountOfDamage)
     {
-        _health -= amountOfDamage;
-        Debug.Log($" {gameObject.name} has {_health} health left");
-
+        Health -= amountOfDamage;
         CheckHealth();
     }
 
     private void CheckHealth()
     {
-        if( _health <= 0) _playerDied.Raise(this, gameObject);
-        Debug.Log($" {gameObject.name} died, this battle is over! ");
+        if( Health <= 0) _playerDied.Raise(this, gameObject);
     }
 }
