@@ -154,11 +154,17 @@ public class GameManager : MonoBehaviour
             GameObject player = canv.transform.parent.gameObject;
 
             if (player != obj as GameObject) continue;
-            if (index == 1) _player2Score++;
-            else _player1Score++;
-            //Add 5 gold to the winning player
-            if (player.GetComponent<TopDownMovement>() != null) player.GetComponent<TopDownMovement>()
-                    .PlayerMoney += 5;
+            if (index == 1)
+            {
+                _player2Score++;
+                Players[index].GetComponentInChildren<ShopUI>().GetCoins(5);
+            }
+            else
+            {
+                _player1Score++;
+                Players[index].GetComponentInChildren<ShopUI>().GetCoins(5);
+            }
+            
         }
         CheckForWin();
     }

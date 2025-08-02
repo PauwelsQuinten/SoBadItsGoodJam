@@ -11,11 +11,6 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField]
     private float _movingSpeed = 5, _rotatingSpeed = 1;
 
-    //PlayerMoney
-    [HideInInspector]
-    public int PlayerMoney;
-    private int _playermoney = 5;
-
     //Audio
     [SerializeField]
     private AudioClip _runningSound;
@@ -33,9 +28,6 @@ public class TopDownMovement : MonoBehaviour
     {
         if(_soundManager != null)_soundManager.LoadSoundWithOutPath("walking", _runningSound);
         if (_playerAnimations == null)_playerAnimations = GetComponentInChildren<Animator>();
-
-        // Init Money Amount
-        PlayerMoney = _playermoney;
     }
 
     private void FixedUpdate()
@@ -55,12 +47,6 @@ public class TopDownMovement : MonoBehaviour
             Quaternion newRotation = Quaternion.Euler(currentRotation);
 
             _rb.Move(transform.position + ((_moveDirection * _movingSpeed) * Time.fixedDeltaTime), newRotation);
-        }
-
-        if (PlayerMoney != _playermoney)
-        {
-            _playermoney = PlayerMoney;
-            Debug.Log($"{this.gameObject.name} has {_playermoney} gold pieces!");
         }
     }
 

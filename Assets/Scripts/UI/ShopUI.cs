@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
@@ -9,9 +10,13 @@ using UnityEngine.UI;
 public class ShopUI : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _leftWizard, _leftGold;
+    private GameObject _leftWizard;
     [SerializeField]
-    private GameObject _rightWizard, _rightGold;
+    private TextMeshPro _leftGoldText;
+    [SerializeField]
+    private GameObject _rightWizard;
+    [SerializeField]
+    private TextMeshPro _rightGoldText;
     [SerializeField]
     private GameObject _cardHolder;
     [SerializeField]
@@ -41,8 +46,8 @@ public class ShopUI : MonoBehaviour
 
     private bool _isSecondPlayer = false;
 
-    private int _currentCardCost = 0;
-    private int _currentGold = 0;
+    private int _currentCardCost = 5;
+    private int _currentGold = 5;
 
     List<GameObject> _players = new List<GameObject>();
 
@@ -54,7 +59,6 @@ public class ShopUI : MonoBehaviour
 
     private void OnEnable()
     {
-
         _gameManager = GameObject.FindAnyObjectByType<GameManager>();
 
         _players = _gameManager.GetCurrentPlayers();
@@ -73,10 +77,15 @@ public class ShopUI : MonoBehaviour
                 _leftWizard.SetActive(false);
                 _rightWizard.SetActive(true);
 
-                _leftGold.SetActive(false);
-                _rightGold.SetActive(true);
+                _leftGoldText.transform.parent.gameObject.SetActive(false);
+                _rightGoldText.transform.parent.gameObject.SetActive(true);
 
                 _isSecondPlayer = true;
+
+                if (_leftGoldText.transform.parent.gameObject.activeSelf) 
+                    _leftGoldText.text = _currentGold.ToString();
+                else _rightGoldText.text = _currentGold.ToString();
+
                 return;
             }
         }
@@ -84,22 +93,28 @@ public class ShopUI : MonoBehaviour
         _leftWizard.SetActive(true);
         _rightWizard.SetActive(false);
 
-        _leftGold.SetActive(true);
-        _rightGold.SetActive(false);
+        _leftGoldText.transform.parent.gameObject.SetActive(true);
+        _rightGoldText.transform.parent.gameObject.SetActive(false);
+
+        if (_leftGoldText.transform.parent.gameObject.activeSelf) 
+            _leftGoldText.text = _currentGold.ToString();
+        else _rightGoldText.text = _currentGold.ToString();
     }
+
 
     public void BuyCard()
     {
-        //Eerst weten welke wizard we hebben (Links of Rechts)
-
-        //Dan weten we welke speler een kaart koopt
-
-        //Dan zijn geld verminderen met de prijs van de kaart
-
-
         if (_currentCardCost > _currentGold) return; //Wat wil current gold zeggen? Van welke speler is deze gold?
         _currentGold -= _currentCardCost;
         SpawnCard();
+    }
+
+    public void GetCoins(int amount) 
+    {
+        _currentGold += amount;
+
+        if (_leftGoldText.transform.parent.gameObject.activeSelf) _leftGoldText.text = _currentGold.ToString();
+        else _rightGoldText.text = _currentGold.ToString();
     }
 
     public void ReadyUp()
