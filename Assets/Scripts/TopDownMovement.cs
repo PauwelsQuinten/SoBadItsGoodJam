@@ -11,6 +11,9 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField]
     private float _movingSpeed = 5, _rotatingSpeed = 1;
 
+    //PlayerMoney
+    private int PlayerMoney { get; set; }
+
     //Audio
     [SerializeField]
     private AudioClip _runningSound;

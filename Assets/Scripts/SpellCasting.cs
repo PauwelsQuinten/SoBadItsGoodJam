@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SpellCasting : MonoBehaviour
 {
     [Header("Every spell needs a rigidbody and a Collider!!!")]
     [SerializeField]
     private GameObject[] _spell;
+    [SerializeField]
+    private Sprite[] _spellIcons;
     [SerializeField]
     private Transform _castPoint;
     [SerializeField]
@@ -14,6 +17,8 @@ public class SpellCasting : MonoBehaviour
     private float _spellSpeed = 5f, _maxMana = 20f;
     [SerializeField]
     public int _spellType = 0; //Later on change to a property 
+    [SerializeField]
+    private Image _spellIcon;
 
     [Header("Mana Regen Values")]
     [Tooltip("After how much time does mana regen and how much mana regen?")]
@@ -27,6 +32,8 @@ public class SpellCasting : MonoBehaviour
     {
         _amountOfMana = _maxMana;
         _manaBar.PlayerMana = (_maxMana / _maxMana) * 100;
+
+        if(_spellIcon != null) _spellIcon.sprite = _spellIcons[_spellType];
     }
 
     private void LateUpdate()
