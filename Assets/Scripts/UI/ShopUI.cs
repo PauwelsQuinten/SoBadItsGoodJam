@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class ShopUI : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _leftWizard;
+    private GameObject _leftWizard, _leftGold;
     [SerializeField]
-    private GameObject _rightWizard;
+    private GameObject _rightWizard, _rightGold;
     [SerializeField]
     private GameObject _cardHolder;
     [SerializeField]
@@ -72,6 +72,10 @@ public class ShopUI : MonoBehaviour
             {
                 _leftWizard.SetActive(false);
                 _rightWizard.SetActive(true);
+
+                _leftGold.SetActive(false);
+                _rightGold.SetActive(true);
+
                 _isSecondPlayer = true;
                 return;
             }
@@ -79,11 +83,21 @@ public class ShopUI : MonoBehaviour
 
         _leftWizard.SetActive(true);
         _rightWizard.SetActive(false);
+
+        _leftGold.SetActive(true);
+        _rightGold.SetActive(false);
     }
 
     public void BuyCard()
     {
-        if (_currentCardCost > _currentGold) return;
+        //Eerst weten welke wizard we hebben (Links of Rechts)
+
+        //Dan weten we welke speler een kaart koopt
+
+        //Dan zijn geld verminderen met de prijs van de kaart
+
+
+        if (_currentCardCost > _currentGold) return; //Wat wil current gold zeggen? Van welke speler is deze gold?
         _currentGold -= _currentCardCost;
         SpawnCard();
     }

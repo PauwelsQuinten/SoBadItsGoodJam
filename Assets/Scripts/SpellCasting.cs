@@ -25,8 +25,9 @@ public class SpellCasting : MonoBehaviour
     [SerializeField]
     private float _manaRegenAmount = 10f, _regenTimer = 5f;
 
+    public float _amountOfMana;
 
-    public float _amountOfMana, timer;
+    private float timer;
 
     private void Start()
     {
@@ -64,8 +65,8 @@ public class SpellCasting : MonoBehaviour
             timer = 0;
         }
 
-        Debug.Log($"Spell \" {_spell[_spellType].name} \" casted");
-        Debug.Log($" {gameObject.name} has {_amountOfMana} mana left");
+        //Debug.Log($"Spell \" {_spell[_spellType].name} \" casted");
+        //Debug.Log($" {gameObject.name} has {_amountOfMana} mana left");
     }
 
     public void ResetMana()

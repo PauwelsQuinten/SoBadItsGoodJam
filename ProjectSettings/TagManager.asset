@@ -9,6 +9,8 @@ TagManager:
   - PlayerCam
   - Canvas
   - SpawnPoint
+  - HUD
+  - Gold
   layers:
   - Default
   - TransparentFX
