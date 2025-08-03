@@ -58,7 +58,6 @@ public class TopDownMovement : MonoBehaviour
         _moveDirection = transform.forward * _yAxis;
         _moveDirection += transform.right * _xAxis;
 
-        if (_playerAnimations == null) return;
         if (_moveDirection != Vector3.zero) _playerAnimations.SetBool("isMoving", true);
         else _playerAnimations.SetBool("isMoving", false);
 

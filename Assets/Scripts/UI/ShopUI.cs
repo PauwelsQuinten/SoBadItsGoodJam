@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
-using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
@@ -31,16 +28,6 @@ public class ShopUI : MonoBehaviour
     private GameObject _SpellHolder;
     [SerializeField]
     private List<GameObject> _spells = new List<GameObject>();
-    [SerializeField]
-    private Button _readyButton;
-    [SerializeField]
-    private List<Sprite> _readyUpSprite = new List<Sprite>();
-    [SerializeField]
-    private List<Sprite> _readyUpSpriteHover = new List<Sprite>();
-    [SerializeField]
-    private List<GameObject> _shopUI = new List<GameObject>();
-    [SerializeField]
-    private GameEvent _ReadiedUp;
 
     private GameManager _gameManager;
 
@@ -53,24 +40,16 @@ public class ShopUI : MonoBehaviour
 
     private Spells _currentSpell = Spells.Default;
     private GameObject _spawnedSpell;
-    private SpriteState _startingSpriteState;
-    private Navigation _startNavigation;
-    private Sprite _startingSprite;
 
     private void OnEnable()
     {
         _gameManager = GameObject.FindAnyObjectByType<GameManager>();
+        transform.parent.GetComponent<TopDownMovement>().enabled = false;
+
 
         _players = _gameManager.GetCurrentPlayers();
 
-        StartCoroutine(EnableReadyButton());
-        EnableUI(true);
-        if(_startingSpriteState.selectedSprite != null)_readyButton.spriteState = _startingSpriteState;
-        if(_startingSprite != null) _readyButton.image.sprite = _startingSprite;
-        if (_startNavigation.selectOnRight != null) _readyButton.navigation = _startNavigation;
-        _eventSystem.GetComponent<MultiplayerEventSystem>().firstSelectedGameObject = _readyButton.gameObject;
-        _readyButton.enabled = true;
-        if (_players.Count > 1)
+        if(_players.Count > 1)
         {
             if (_players[1] == transform.parent.gameObject)
             {
@@ -144,16 +123,6 @@ public class ShopUI : MonoBehaviour
         StartCoroutine(DeleteCardWithDelay(sender.gameObject));
     }
 
-    public void EnableUI(bool state)
-    {
-        foreach(GameObject go in _shopUI)
-        {
-            go.SetActive(state);
-        }
-        transform.parent.GetComponent<TopDownMovement>().enabled = !state;
-        if(!state) _readyButton.onClick.RemoveListener(ReadyUp);
-    }
-
     private void SpawnCard()
     {
         GameObject newCard = Instantiate(_cardPrefab, _cardHolder.transform);
@@ -217,9 +186,4 @@ public class ShopUI : MonoBehaviour
         Destroy(obj);
     }
 
-    private IEnumerator EnableReadyButton()
-    {
-        yield return new WaitForSeconds(0.5f);
-        _readyButton.onClick.AddListener(ReadyUp);
-    }
 }
