@@ -180,7 +180,7 @@
                 {
                     "name": "",
                     "id": "96e14415-1f51-4690-a78b-f8d9bdec2999",
-                    "path": "<XInputController>/rightShoulder",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
