@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +19,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameEvent _playerJoined;
 
-    [SerializeField]
     private TextMeshPro _player1ScoreUI, _player2ScoreUI;
 
     private int _playersJoined = 0;
@@ -167,32 +164,40 @@ public class GameManager : MonoBehaviour
             {
                 _player2Score++;
                 Players[1].GetComponentInChildren<ShopUI>().GetCoins(5);
-
-                StartCoroutine(ShowScoreScreen(_player1Score, _player2Score, canv));
             }
             else
             {
                 _player1Score++;
                 Players[0].GetComponentInChildren<ShopUI>().GetCoins(5);
-
-                StartCoroutine(ShowScoreScreen(_player1Score, _player2Score, canv));
             }
- 
+
         }
+
+        index = 0;
+
+        foreach (GameObject canv in canvases)
+        {
+            StartCoroutine(ShowScoreScreen(_player1Score, _player2Score, canv, index));
+
+            index++;
+        }
+
         CheckForWin();
     }
 
-    private IEnumerator ShowScoreScreen(int player1Score, int player2Score, GameObject canv)
+    private IEnumerator ShowScoreScreen(int player1Score, int player2Score, GameObject canv, int index)
     {
         ShopUI shopUI = canv.GetComponent<ShopUI>();
+        List<GameObject> scoreBoards = GameObject.FindGameObjectsWithTag("ScoreBoard").ToList();
 
-        _player1ScoreUI.gameObject.SetActive(true);
-        _player1ScoreUI.gameObject.SetActive(true);
+        ScoreBoardUI scoreBoardUI = scoreBoards[index].GetComponent<ScoreBoardUI>();
+        scoreBoardUI.EnableUI(true);
+        scoreBoardUI.SetScore(_player1Score, _player2Score);
 
-        _player1ScoreUI.text = player1Score.ToString();
-        _player2ScoreUI.text = player2Score.ToString();
 
         yield return new WaitForSeconds(10);
+
+         scoreBoardUI.EnableUI(false);
 
         shopUI.enabled = true;
         shopUI.EnableUI(true);
