@@ -34,7 +34,8 @@ public class SpellCasting : MonoBehaviour
         _amountOfMana = _maxMana;
         _manaBar.PlayerMana = (_maxMana / _maxMana) * 100;
 
-        if(_spellIcon != null) _spellIcon.sprite = _spellIcons[_spellType];
+        _spellType = 0;
+        if (_spellIcon != null) _spellIcon.sprite = _spellIcons[_spellType];
     }
 
     private void LateUpdate()
@@ -64,13 +65,34 @@ public class SpellCasting : MonoBehaviour
             _manaBar.PlayerMana = (_amountOfMana / _maxMana) * 100;
             timer = 0;
         }
-
-        //Debug.Log($"Spell \" {_spell[_spellType].name} \" casted");
-        //Debug.Log($" {gameObject.name} has {_amountOfMana} mana left");
     }
 
     public void ResetMana()
     {
         _amountOfMana = _maxMana;
+    }
+
+    public void SetSpell(Component sender, object obj)
+    {
+        if (sender.transform.parent.gameObject.transform.parent.gameObject != gameObject) return;
+        Spells spell = (Spells)(obj as Spells?);
+
+        switch(spell)
+        {
+            case Spells.Default:
+                _spellType = 0;
+                break;
+            case Spells.WaterBall:
+                _spellType = 1;
+                break;
+            case Spells.FireBall:
+                _spellType = 2;
+                break;
+            case Spells.AcidBall:
+                _spellType = 3;
+                break;
+        }
+
+        if (_spellIcon != null) _spellIcon.sprite = _spellIcons[_spellType];
     }
 }

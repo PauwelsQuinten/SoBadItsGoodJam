@@ -387,6 +387,7 @@ MonoBehaviour:
   Events:
   - {fileID: 11400000, guid: 976a8fe5a2684b0489c8da3363a7917a, type: 2}
   - {fileID: 11400000, guid: ac31f41cb78ef614aba15351ded02994, type: 2}
+  - {fileID: 11400000, guid: 3bfa2716020a4dd4980e0549f5d8b85f, type: 2}
   Responses:
   - m_PersistentCalls:
       m_Calls:
@@ -407,6 +408,20 @@ MonoBehaviour:
       - m_Target: {fileID: 509995862165169329}
         m_TargetAssemblyTypeName: TopDownMovement, Assembly-CSharp
         m_MethodName: ChangeCanMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6671323913761799638}
+        m_TargetAssemblyTypeName: SpellCasting, Assembly-CSharp
+        m_MethodName: SetSpell
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
