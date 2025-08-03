@@ -57,6 +57,10 @@ public class ShopUI : MonoBehaviour
     private Sprite _startingSprite;
     private SpriteState _startingSpriteState;
 
+    private void Start()
+    {
+        ChangeCurrentSpelUI(Spells.Default);
+    }
     public void Initialize()
     {
         StartCoroutine(EnableReadyButtonWithDelay());
