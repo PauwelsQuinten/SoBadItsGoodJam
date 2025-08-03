@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameEvent _playerJoined;
 
-
+    [SerializeField]
+    private TextMeshPro _player1ScoreUI, _player2ScoreUI;
 
     private int _playersJoined = 0;
     private List<GameObject> Players {  set;  get; } = new List<GameObject>();
@@ -151,61 +152,52 @@ public class GameManager : MonoBehaviour
         List<GameObject> canvases = GameObject.FindGameObjectsWithTag("Canvas").ToList();
         foreach (GameObject canv in canvases)
         {
-            index++;
             Canvas canvas = canv.GetComponent<Canvas>();
             ShopUI shopUI = canv.GetComponent<ShopUI>();
 
-            if (_player1Score != 3 && _player2Score != 3)
-            {
-                canvas.enabled = true;
-                shopUI.enabled = true;
-                shopUI.EnableUI(true);
-                shopUI.Initialize();
-            }
+            canvas.enabled = true; 
+
+            index++;
 
             GameObject player = canv.transform.parent.gameObject;
 
             if (player != obj as GameObject) continue;
+
             if (index == 1)
             {
                 _player2Score++;
                 Players[1].GetComponentInChildren<ShopUI>().GetCoins(5);
 
-                ShowScoreScreen(_player2Score);
+                StartCoroutine(ShowScoreScreen(_player1Score, _player2Score, canv));
             }
             else
             {
                 _player1Score++;
                 Players[0].GetComponentInChildren<ShopUI>().GetCoins(5);
 
-                ShowScoreScreen(_player1Score);
+                StartCoroutine(ShowScoreScreen(_player1Score, _player2Score, canv));
             }
-            
+ 
         }
         CheckForWin();
     }
 
-    private void ShowScoreScreen(int playerScore)
+    private IEnumerator ShowScoreScreen(int player1Score, int player2Score, GameObject canv)
     {
-        //Get the parent scorescreen object
-        List<GameObject> scoreScreens = GameObject.FindGameObjectsWithTag("ScoreBoard").ToList();
-        List<TextMeshPro> playersScore = new List<TextMeshPro>();
+        ShopUI shopUI = canv.GetComponent<ShopUI>();
 
-        if (scoreScreens == null) return;
+        _player1ScoreUI.gameObject.SetActive(true);
+        _player1ScoreUI.gameObject.SetActive(true);
 
-        foreach (GameObject scorescreen in scoreScreens)
-        {
-            scorescreen.SetActive(true);
-            playersScore = scorescreen.GetComponentsInChildren<TextMeshPro>().ToList();
+        _player1ScoreUI.text = player1Score.ToString();
+        _player2ScoreUI.text = player2Score.ToString();
 
-            if (playersScore == null) return;
+        yield return new WaitForSeconds(10);
 
-            foreach (TextMeshPro score in playersScore)
-            {
-                if (score.gameObject.name == "ScorePlayerLeft") score.text = _player1Score.ToString();
-                else score.text = _player2Score.ToString();
-            }
-        }
+        shopUI.enabled = true;
+        shopUI.EnableUI(true);
+        shopUI.Initialize();
+
     }
 
     private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
