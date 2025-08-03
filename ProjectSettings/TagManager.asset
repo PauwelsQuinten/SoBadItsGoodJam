@@ -11,6 +11,7 @@ TagManager:
   - SpawnPoint
   - HUD
   - Gold
+  - ScoreBoard
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,6 @@ TagManager:
   - Player
   - ScratchArea
   - Obstacles
-  - 
   - 
   - 
   - 
