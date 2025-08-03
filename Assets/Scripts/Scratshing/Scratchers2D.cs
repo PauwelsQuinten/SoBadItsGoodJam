@@ -236,8 +236,6 @@ public class Scratchers2D : MonoBehaviour
 		_scratchedSpots = 0;
 
 		RevealAllScratchArea();
-
-        Debug.Log("Completed");
     }
 
     void RevealAllScratchArea()

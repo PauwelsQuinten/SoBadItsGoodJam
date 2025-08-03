@@ -57,6 +57,10 @@ public class ShopUI : MonoBehaviour
     private Sprite _startingSprite;
     private SpriteState _startingSpriteState;
 
+    private void Start()
+    {
+        ChangeCurrentSpelUI(Spells.Default);
+    }
     public void Initialize()
     {
         StartCoroutine(EnableReadyButtonWithDelay());
@@ -106,6 +110,9 @@ public class ShopUI : MonoBehaviour
     {
         if (_currentCardCost > _currentGold) return; //Wat wil current gold zeggen? Van welke speler is deze gold?
         _currentGold -= _currentCardCost;
+        if (_leftGoldText.transform.parent.gameObject.activeSelf)
+            _leftGoldText.text = _currentGold.ToString();
+        else _rightGoldText.text = _currentGold.ToString();
         SpawnCard();
     }
 
