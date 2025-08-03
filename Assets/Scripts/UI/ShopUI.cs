@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
+    [SerializeField]
+    private List<GameObject> _shopUI = new List<GameObject>();
     [SerializeField]
     private GameObject _leftWizard;
     [SerializeField]
@@ -28,6 +32,14 @@ public class ShopUI : MonoBehaviour
     private GameObject _SpellHolder;
     [SerializeField]
     private List<GameObject> _spells = new List<GameObject>();
+    [SerializeField]
+    private List<Sprite> _readyUpSprite = new List<Sprite>();
+    [SerializeField]
+    private List<Sprite> _readyUpSpriteHover = new List<Sprite>();
+    [SerializeField]
+    private Button _readyButton;
+    [SerializeField]
+    private GameEvent _ReadiedUp;
 
     private GameManager _gameManager;
 
@@ -40,6 +52,9 @@ public class ShopUI : MonoBehaviour
 
     private Spells _currentSpell = Spells.Default;
     private GameObject _spawnedSpell;
+    private Navigation _startNavigation;
+    private Sprite _startingSprite;
+    private SpriteState _startingSpriteState;
 
     private void OnEnable()
     {
@@ -121,6 +136,16 @@ public class ShopUI : MonoBehaviour
         ChangeCurrentSpelUI((Spells)(obj as Spells?));
         _eventSystem.SetActive(true);
         StartCoroutine(DeleteCardWithDelay(sender.gameObject));
+    }
+
+    public void EnableUI(bool state)
+    {
+        foreach (GameObject go in _shopUI)
+        {
+            go.SetActive(state);
+        }
+        transform.parent.GetComponent<TopDownMovement>().enabled = !state;
+        if (!state) _readyButton.onClick.RemoveListener(ReadyUp);
     }
 
     private void SpawnCard()
