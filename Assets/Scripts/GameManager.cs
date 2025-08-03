@@ -1,7 +1,9 @@
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -93,6 +95,14 @@ public class GameManager : MonoBehaviour
     {
         _amountOfPlayersReady++;
         if (_amountOfPlayersReady != Players.Count) return;
+
+        StartCoroutine(DelayedGameStart(2));
+    }
+
+    IEnumerator DelayedGameStart(int delay)
+    {
+        yield return new WaitForSeconds(delay);
+
         _amountOfPlayersReady = 0;
 
         List<GameObject> canvases = GameObject.FindGameObjectsWithTag("Canvas").ToList();
@@ -103,7 +113,7 @@ public class GameManager : MonoBehaviour
             shopUI.enabled = false;
         }
 
-        foreach(GameObject player in Players)
+        foreach (GameObject player in Players)
         {
             player.GetComponent<PlayerHealth>().ResetHealth();
             player.GetComponent<SpellCasting>().ResetMana();
@@ -160,15 +170,42 @@ public class GameManager : MonoBehaviour
             {
                 _player2Score++;
                 Players[1].GetComponentInChildren<ShopUI>().GetCoins(5);
+
+                ShowScoreScreen(_player2Score);
             }
             else
             {
                 _player1Score++;
                 Players[0].GetComponentInChildren<ShopUI>().GetCoins(5);
+
+                ShowScoreScreen(_player1Score);
             }
             
         }
         CheckForWin();
+    }
+
+    private void ShowScoreScreen(int playerScore)
+    {
+        //Get the parent scorescreen object
+        List<GameObject> scoreScreens = GameObject.FindGameObjectsWithTag("ScoreBoard").ToList();
+        List<TextMeshPro> playersScore = new List<TextMeshPro>();
+
+        if (scoreScreens == null) return;
+
+        foreach (GameObject scorescreen in scoreScreens)
+        {
+            scorescreen.SetActive(true);
+            playersScore = scorescreen.GetComponentsInChildren<TextMeshPro>().ToList();
+
+            if (playersScore == null) return;
+
+            foreach (TextMeshPro score in playersScore)
+            {
+                if (score.gameObject.name == "ScorePlayerLeft") score.text = _player1Score.ToString();
+                else score.text = _player2Score.ToString();
+            }
+        }
     }
 
     private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
