@@ -29,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void CheckHealth()
     {
-        if(_healthBar._playerHealth <= 0) _playerDied.Raise(this, gameObject);
+        if(_healthBar._playerHealth <= 0)
+            _playerDied.Raise(this, gameObject);
     }
 }

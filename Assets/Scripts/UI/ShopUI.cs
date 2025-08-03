@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ShopUI : MonoBehaviour
@@ -8,7 +9,11 @@ public class ShopUI : MonoBehaviour
     [SerializeField]
     private GameObject _leftWizard;
     [SerializeField]
+    private TextMeshPro _leftGoldText;
+    [SerializeField]
     private GameObject _rightWizard;
+    [SerializeField]
+    private TextMeshPro _rightGoldText;
     [SerializeField]
     private GameObject _cardHolder;
     [SerializeField]
@@ -28,8 +33,8 @@ public class ShopUI : MonoBehaviour
 
     private bool _isSecondPlayer = false;
 
-    private int _currentCardCost = 0;
-    private int _currentGold = 0;
+    private int _currentCardCost = 5;
+    private int _currentGold = 5;
 
     List<GameObject> _players = new List<GameObject>();
 
@@ -38,9 +43,9 @@ public class ShopUI : MonoBehaviour
 
     private void OnEnable()
     {
+        _gameManager = GameObject.FindAnyObjectByType<GameManager>();
         transform.parent.GetComponent<TopDownMovement>().enabled = false;
 
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         _players = _gameManager.GetCurrentPlayers();
 
@@ -50,20 +55,64 @@ public class ShopUI : MonoBehaviour
             {
                 _leftWizard.SetActive(false);
                 _rightWizard.SetActive(true);
+
+                _leftGoldText.transform.parent.gameObject.SetActive(false);
+                _rightGoldText.transform.parent.gameObject.SetActive(true);
+
                 _isSecondPlayer = true;
+
+                if (_leftGoldText.transform.parent.gameObject.activeSelf) 
+                    _leftGoldText.text = _currentGold.ToString();
+                else _rightGoldText.text = _currentGold.ToString();
+
                 return;
             }
         }
 
         _leftWizard.SetActive(true);
         _rightWizard.SetActive(false);
+
+        _leftGoldText.transform.parent.gameObject.SetActive(true);
+        _rightGoldText.transform.parent.gameObject.SetActive(false);
+
+        if (_leftGoldText.transform.parent.gameObject.activeSelf) 
+            _leftGoldText.text = _currentGold.ToString();
+        else _rightGoldText.text = _currentGold.ToString();
     }
+
 
     public void BuyCard()
     {
-        if (_currentCardCost > _currentGold) return;
+        if (_currentCardCost > _currentGold) return; //Wat wil current gold zeggen? Van welke speler is deze gold?
         _currentGold -= _currentCardCost;
         SpawnCard();
+    }
+
+    public void GetCoins(int amount) 
+    {
+        _currentGold += amount;
+
+        if (_leftGoldText.transform.parent.gameObject.activeSelf) _leftGoldText.text = _currentGold.ToString();
+        else _rightGoldText.text = _currentGold.ToString();
+    }
+
+    public void ReadyUp()
+    {
+        _startingSprite = _readyButton.image.sprite;
+        if (_isSecondPlayer)_readyButton.image.sprite = _readyUpSprite[1];
+        else _readyButton.image.sprite = _readyUpSprite[0];
+        SpriteState newSpriteState = _readyButton.spriteState;
+        _startingSpriteState = newSpriteState;
+        if (_isSecondPlayer) newSpriteState.selectedSprite = _readyUpSpriteHover[1];
+        else newSpriteState.selectedSprite = _readyUpSpriteHover[0];
+        _readyButton.spriteState = newSpriteState;
+        Navigation newNavigation = _readyButton.navigation;
+        _startNavigation = newNavigation;
+        newNavigation.selectOnLeft = null;
+        newNavigation.selectOnRight = null;
+        _readyButton.navigation = newNavigation;
+        _readyButton.enabled = false;
+        _ReadiedUp.Raise(this, EventArgs.Empty);
     }
 
     public void ScratchingCompleted(Component sender, object obj)

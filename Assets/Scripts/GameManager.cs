@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameEvent _playerJoined;
 
+
+
     private int _playersJoined = 0;
     private List<GameObject> Players {  set;  get; } = new List<GameObject>();
 
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         _spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint").ToList();
-        if (_spawnPoints[0].transform.parent.name == "Spawnpoint_Blue")
+         if (_spawnPoints[0].transform.parent.name == "Spawnpoint_Blue")
         {
             _playerSpawnPoints[0] = _spawnPoints[0].transform;
             _playerSpawnPoints[1] = _spawnPoints[1].transform;
@@ -152,8 +154,17 @@ public class GameManager : MonoBehaviour
             GameObject player = canv.transform.parent.gameObject;
 
             if (player != obj as GameObject) continue;
-            if (index == 1) _player2Score++;
-            else _player1Score++;
+            if (index == 1)
+            {
+                _player2Score++;
+                Players[index].GetComponentInChildren<ShopUI>().GetCoins(5);
+            }
+            else
+            {
+                _player1Score++;
+                Players[index].GetComponentInChildren<ShopUI>().GetCoins(5);
+            }
+            
         }
         CheckForWin();
     }

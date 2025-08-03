@@ -95,8 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a317b7d71dd0e424c8f759f0d2343eac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifeTime: 10
+  _lifeTime: 2
   SpellData: {fileID: 11400000, guid: 822438894db93a74e8bc1d30627aa191, type: 2}
+  Sender: {fileID: 0}
 --- !u!1001 &1890796576840798147
 PrefabInstance:
   m_ObjectHideFlags: 0

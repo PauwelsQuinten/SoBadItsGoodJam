@@ -34,7 +34,6 @@ public class TopDownMovement : MonoBehaviour
     {
         float rotationChange;
         //When there is no input the character should not move
-        //if (_cameraXAxis == 0) rotationChange = 0;
         if (_cameraXAxis == 0 && _yAxis == 0 && _xAxis == 0)
         {
             _rb.linearVelocity = Vector3.zero;

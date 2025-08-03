@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Mouse
   - StageRenderer
+  - PlayerCam
+  - Canvas
+  - SpawnPoint
+  - HUD
+  - Gold
   layers:
   - Default
   - TransparentFX
