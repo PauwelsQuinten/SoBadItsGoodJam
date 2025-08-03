@@ -41,6 +41,8 @@ public class ShopUI : MonoBehaviour
     private Button _readyButton;
     [SerializeField]
     private GameEvent _ReadiedUp;
+    [SerializeField]
+    private List<TextMeshProUGUI> _wizardDialogue = new List<TextMeshProUGUI>();
 
     private GameManager _gameManager;
 
@@ -108,11 +110,24 @@ public class ShopUI : MonoBehaviour
 
     public void BuyCard()
     {
-        if (_currentCardCost > _currentGold) return; //Wat wil current gold zeggen? Van welke speler is deze gold?
-        _currentGold -= _currentCardCost;
+        if (_currentCardCost > _currentGold)
+        {
+            foreach (TextMeshProUGUI text in _wizardDialogue)
+            {
+                text.text = "looks like you are out of coins";
+            }
+            return;
+        }
+            _currentGold -= _currentCardCost;
         if (_leftGoldText.transform.parent.gameObject.activeSelf)
             _leftGoldText.text = _currentGold.ToString();
         else _rightGoldText.text = _currentGold.ToString();
+
+        foreach (TextMeshProUGUI text in _wizardDialogue)
+        {
+            text.transform.parent.gameObject.SetActive(false);
+        }
+
         SpawnCard();
     }
 
@@ -122,6 +137,12 @@ public class ShopUI : MonoBehaviour
 
         if (_leftGoldText.transform.parent.gameObject.activeSelf) _leftGoldText.text = _currentGold.ToString();
         else _rightGoldText.text = _currentGold.ToString();
+
+        foreach (TextMeshProUGUI text in _wizardDialogue)
+        {
+            text.text = "Want to buy a scratch card for 5 coins?";
+        }
+
     }
 
     public void ReadyUp()
@@ -222,6 +243,11 @@ public class ShopUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(obj);
+        foreach (TextMeshProUGUI text in _wizardDialogue)
+        {
+            text.text = "Want to buy a scratch card for 5 gold?";
+            text.transform.parent.gameObject.SetActive(true);
+        }
     }
 
     private IEnumerator EnableReadyButtonWithDelay()

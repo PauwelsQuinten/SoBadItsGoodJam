@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         _amountOfPlayersReady++;
         if (_amountOfPlayersReady != Players.Count) return;
 
-        StartCoroutine(DelayedGameStart(2));
+        StartCoroutine(DelayedGameStart(1));
     }
 
     IEnumerator DelayedGameStart(int delay)
@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
         scoreBoardUI.SetScore(_player1Score, _player2Score);
 
 
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(5);
 
          scoreBoardUI.EnableUI(false);
 
