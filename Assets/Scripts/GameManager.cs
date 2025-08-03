@@ -149,6 +149,8 @@ public class GameManager : MonoBehaviour
             {
                 canvas.enabled = true;
                 shopUI.enabled = true;
+                shopUI.EnableUI(true);
+                shopUI.Initialize();
             }
 
             GameObject player = canv.transform.parent.gameObject;
@@ -157,12 +159,12 @@ public class GameManager : MonoBehaviour
             if (index == 1)
             {
                 _player2Score++;
-                Players[index].GetComponentInChildren<ShopUI>().GetCoins(5);
+                Players[1].GetComponentInChildren<ShopUI>().GetCoins(5);
             }
             else
             {
                 _player1Score++;
-                Players[index].GetComponentInChildren<ShopUI>().GetCoins(5);
+                Players[0].GetComponentInChildren<ShopUI>().GetCoins(5);
             }
             
         }
@@ -212,6 +214,8 @@ public class GameManager : MonoBehaviour
             ShopUI shopUI = canv.GetComponent<ShopUI>();
             canvas.enabled = true;
             shopUI.enabled = true;
+            shopUI.EnableUI(true);
+            shopUI.Initialize();
         }
     }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
@@ -56,11 +57,16 @@ public class ShopUI : MonoBehaviour
     private Sprite _startingSprite;
     private SpriteState _startingSpriteState;
 
-    private void OnEnable()
+    public void Initialize()
     {
+        StartCoroutine(EnableReadyButtonWithDelay());
         _gameManager = GameObject.FindAnyObjectByType<GameManager>();
         transform.parent.GetComponent<TopDownMovement>().enabled = false;
+        if (_startingSpriteState.selectedSprite != null) _readyButton.spriteState = _startingSpriteState;
+        if (_startNavigation.selectOnLeft != null) _readyButton.navigation = _startNavigation;
+        if(_startingSprite != null) _readyButton.image.sprite= _startingSprite;
 
+        _eventSystem.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(_readyButton.gameObject);
 
         _players = _gameManager.GetCurrentPlayers();
 
@@ -211,4 +217,10 @@ public class ShopUI : MonoBehaviour
         Destroy(obj);
     }
 
+    private IEnumerator EnableReadyButtonWithDelay()
+    {
+        yield return new WaitForSeconds(1);
+        _readyButton.enabled = true;
+        _readyButton.onClick.AddListener(ReadyUp);
+    }
 }

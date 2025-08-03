@@ -686,9 +686,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 407773488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9615076461a47da4eaf713ae8cb3f1be, type: 3}
+  m_Script: {fileID: 11500000, guid: a6d8d01857affe04d8665a6fa296cd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backToLobbyScreen: {fileID: 11400000, guid: c1bd00d17ac8279409210cc4a40a58c2, type: 2}
 --- !u!224 &407773490
 RectTransform:
   m_ObjectHideFlags: 0
